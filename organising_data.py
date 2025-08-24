@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 full_data = pd.read_csv("imdb_top_1000.csv")
 
@@ -8,5 +9,10 @@ for index in range(len(full_data)):
     full_data.loc[index, "Runtime"] = full_data.loc[index, "Runtime"].replace(' min','')
 
 
-movie_data = full_data.values.tolist()
+#for index in range(len(full_data)):
+    #full_data.loc[index, "Certificate"] = full_data.loc[index, "Certificate"].replace(np.nan,'Unknown')
 
+full_data["Certificate"]=full_data["Certificate"].fillna('Unknown')
+
+
+movie_data = full_data.values.tolist()

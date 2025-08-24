@@ -4,13 +4,7 @@ from linkedlist import LinkedList
 from node import Node
 
 
-age_ratings = []
-for movie in movie_data:
-    if movie[2] not in age_ratings:
-        age_ratings.append(movie[2])
 
-## Removing nan as an option
-age_ratings.pop(5)
 
 ## Select IMDB rating
 rating_input = str(input('\nWhat IMDB rating would you like?\nEnter A for 0-8, B for 8-8.5, C for 8.5-9, D for 9-10 \n').lower())
@@ -31,7 +25,12 @@ for movie in movie_data:
             movies_with_chosen_rating.append(movie)
 
 
-print(movies_with_chosen_rating)
+age_ratings = []
+for movie in movies_with_chosen_rating:
+    if movie[2] not in age_ratings:
+        age_ratings.append(movie[2])
+
+
 ## Putting our age ratings into a LinkedList
 def insert_age_ratings():
     age_ratings_list = LinkedList()
@@ -60,24 +59,24 @@ my_movie_list = insert_movie_data()
 selected_movie_rating = ""
 
 while len(selected_movie_rating) == 0:
-    print(age_ratings)
+    print('\n')
+    print('Options:',age_ratings)
     selected_movie_rating = str(input('\nWhat movie age rating would you like?\n'))
 
     print("Selected Movie Rating: " + selected_movie_rating)
     movie_list_head = my_movie_list.get_head_node()
     while movie_list_head.get_next_node() is not None:
         sublist_head = movie_list_head.get_value().get_head_node()
-        if sublist_head.get_value() is None:
-            print('No movies meet criteria, try again')
-            break
-        if sublist_head.get_value()[2] == selected_movie_rating:
-            while sublist_head.get_next_node() is not None:
-                print("--------------------------")
-                print("Name: " + sublist_head.get_value()[1])
-                print("Release Year: " + sublist_head.get_value()[2])
-                print("Rating: " + sublist_head.get_value()[3])
-                print("Runtime Minutes: " + str(sublist_head.get_value()[4]))
-                print("IMDB Rating: " + str(sublist_head.get_value()[4]))
-                print("--------------------------\n")
-                sublist_head = sublist_head.get_next_node()
+        if (sublist_head is not None):
+
+            if (sublist_head.get_value()[2] == selected_movie_rating):
+                while sublist_head.get_next_node() is not None:
+                    print("--------------------------")
+                    print("Name: " + sublist_head.get_value()[0])
+                    print("Release Year: " + sublist_head.get_value()[1])
+                    print("Rating: " + sublist_head.get_value()[2])
+                    print("Runtime Minutes: " + str(sublist_head.get_value()[3]))
+                    print("IMDB Rating: " + str(sublist_head.get_value()[4]))
+                    print("--------------------------\n")
+                    sublist_head = sublist_head.get_next_node()
         movie_list_head = movie_list_head.get_next_node()
